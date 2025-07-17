@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10B981',
+                        secondary: '#047857',
+                        dark: '#0f172a',
+                        darker: '#0a0f1f'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0f172a;
+            color: #f1f5f9;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .hero-pattern {
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, rgba(15, 23, 42, 0) 70%);
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.2);
+        }
+
+        .tech-tag {
+            background: rgba(16, 185, 129, 0.15);
+            transition: all 0.2s ease;
+        }
+
+        .tech-tag:hover {
+            background: rgba(16, 185, 129, 0.3);
+            transform: scale(1.05);
+        }
+
+        .carousel-image {
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .modal-overlay {
+            background: rgba(10, 15, 31, 0.95);
+        }
+
+        .terminal-line::before {
+            content: '> ';
+            color: #10B981;
+            margin-right: 8px;
+        }
+
+        .hexagon {
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(16, 185, 129, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(90deg, #10B981, transparent);
+            border-radius: 2px;
+        }
+
+        .tech-icon {
+            width: 20px;
+            text-align: center;
+            margin-right: 6px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body class="relative">
+    <div class="fixed top-0 left-0 w-full h-full -z-10 opacity-10">
+        <div class="absolute top-20 right-20 w-64 h-64 rounded-full bg-primary blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-40 left-10 w-48 h-48 bg-secondary rounded-full blur-3xl"></div>
+        <div class="absolute top-1/3 left-1/4 w-8 h-8 bg-primary rounded-full"></div>
+        <div class="absolute bottom-1/4 right-1/3 w-12 h-12 bg-secondary rounded-full"></div>
+        <div class="absolute top-10 left-1/2 transform -translate-x-1/2 w-16 h-16 hexagon bg-primary opacity-20"></div>
+    </div>
+
+    <div class="fixed top-10 right-10 w-6 h-6 bg-primary rounded-full pulse"></div>
+    <div class="fixed bottom-20 left-8 w-4 h-4 bg-secondary rounded-full"></div>
+
+    <nav class="sticky top-0 z-50 bg-dark/80 backdrop-blur-sm border-b border-gray-800">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center mr-3">
+                    <i class="fas fa-code text-dark text-lg"></i>
+                </div>
+                <span
+                    class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-emerald-300">Portfolio</span>
+            </div>
+
+            <div class="hidden md:flex space-x-8">
+                <a href="#tentang" class="hover:text-primary transition">Tentang</a>
+                <a href="#skills" class="hover:text-primary transition">Skills</a>
+                <a href="#project" class="hover:text-primary transition">Project</a>
+                <a href="#kontak" class="hover:text-primary transition">Kontak</a>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <button id="mobileMenuToggle" class="md:hidden text-gray-300">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobileMenu" class="md:hidden hidden mb-4 px-4 space-y-2">
+            <a href="#tentang" class="block text-gray-300 hover:text-primary transition">Tentang</a>
+            <a href="#skills" class="block text-gray-300 hover:text-primary transition">Skills</a>
+            <a href="#project" class="block text-gray-300 hover:text-primary transition">Project</a>
+            <a href="#kontak" class="block text-gray-300 hover:text-primary transition">Kontak</a>
+        </div>
+    </nav>
+
+    <section class="hero-pattern py-20 relative">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0 fade-in">
+                <div class="mb-4">
+                    <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">Halo! Saya</span>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold mb-4">
+                    <span class="block">Web &</span>
+                    <span class="block">Android</span>
+                    <span
+                        class="block bg-clip-text text-transparent bg-gradient-to-r from-primary to-emerald-300">Developer</span>
+                </h1>
+                <p class="text-gray-300 mb-6 max-w-lg">
+                    Saya membuat aplikasi web dan mobile yang fungsional, menarik,
+                    dan memberikan pengalaman terbaik bagi pengguna.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="#project"
+                        class="px-6 py-3 bg-primary text-dark font-semibold rounded-lg hover:bg-emerald-400 transition">Lihat
+                        Project</a>
+                    <a href="#kontak"
+                        class="px-6 py-3 border border-primary text-primary font-semibold rounded-lg hover:bg-primary/10 transition">Hubungi
+                        Saya</a>
+                </div>
+
+                <div class="mt-10 flex space-x-6">
+                    <div class="flex items-center">
+                        <div
+                            class="w-12 h-12 rounded-full bg-dark border-2 border-primary flex items-center justify-center">
+                            <i class="fas fa-code text-primary"></i>
+                        </div>
+                        <div class="ml-4">
+                            <div class="font-semibold">5+</div>
+                            <div class="text-gray-400 text-sm">Tahun</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div
+                            class="w-12 h-12 rounded-full bg-dark border-2 border-primary flex items-center justify-center">
+                            <i class="fas fa-mobile-alt text-primary"></i>
+                        </div>
+                        <div class="ml-4">
+                            <div class="font-semibold">5+</div>
+                            <div class="text-gray-400 text-sm">Project</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:w-1/2 flex justify-center">
+                <div class="relative">
+                    <div
+                        class="w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-primary/30 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-dark to-darker"></div>
+                        <div
+                            class="absolute inset-4 border-2 border-primary/20 rounded-full flex items-center justify-center">
+                            <div class="code-font text-center px-4">
+                                <div class="text-primary">&lt;code&gt;</div>
+                                <div class="text-white">createAwesome()</div>
+                                <div class="text-primary">&lt;/code&gt;</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="absolute -bottom-5 -left-5 w-28 h-28 rounded-lg bg-dark border border-primary/30 rotate-12 flex flex-col items-center justify-center p-2">
+                        <div class="text-primary text-3xl">
+                            <i class="fab fa-android"></i>
+                        </div>
+                        <div class="text-xs mt-1 text-center">Android Developer</div>
+                    </div>
+                    <div
+                        class="absolute -top-5 -right-5 w-28 h-28 rounded-lg bg-dark border border-primary/30 -rotate-12 flex flex-col items-center justify-center p-2">
+                        <div class="text-primary text-3xl">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="text-xs mt-1 text-center">Web Developer</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tentang" class="py-20 bg-darker">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-2 section-title">Tentang Saya</h2>
+            <div class="w-20 h-1 bg-primary rounded-full mb-10"></div>
+
+            <div class="flex flex-col md:flex-row gap-10">
+                <div class="md:w-1/2">
+                    <p class="text-gray-300 mb-6">
+                        Saya adalah lulusan Teknik Geofisika yang awalnya tidak memiliki latar belakang formal di bidang
+                        IT. Namun, ketertarikan dan rasa ingin tahu yang tinggi membuat saya mendalami dunia pemrograman
+                        secara otodidak, dimulai dari hobi pribadi sejak duduk dibangku SMA.
+                    </p>
+                    <p class="text-gray-300 mb-6">
+                        Perjalanan saya di bidang ini bermula ketika orang-orang terdekat mulai mempercayakan saya untuk
+                        membantu membangun solusi digital bagi kebutuhan mereka. Sejak saat itu, saya terus berkembang
+                        dan kini aktif mengembangkan aplikasi web dan Android yang modern, responsif, dan fungsional.
+                    </p>
+                    <p class="text-gray-300 mb-6">
+                        Saya percaya bahwa kode yang baik adalah kode yang bersih, terstruktur,
+                        dan mudah dipelihara. Dalam setiap project, saya berusaha untuk menerapkan
+                        best practices dan teknologi terkini untuk memastikan hasil yang optimal.
+                    </p>
+
+                    <div class="mt-8">
+                        <h3 class="text-xl font-semibold mb-4">Pendidikan</h3>
+                        <div class="space-y-4">
+                            <div class="flex">
+                                <div class="mr-4">
+                                    <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                                        <i class="fas fa-graduation-cap text-primary"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">S1 Teknik Geofisika</h4>
+                                    <p class="text-gray-400">Universitas Lampung, 2017-2023</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <h3 class="text-xl font-semibold mb-4">Sertifikasi</h3>
+                        <div class="space-y-6">
+
+                            <div class="flex items-start justify-between bg-dark/30 p-4 rounded-lg">
+                                <div class="flex">
+                                    <div class="mr-4">
+                                        <div
+                                            class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                                            <i class="fas fa-certificate text-primary"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold">Teknik Pengelolaan Jaringan Komputer (Daring)</h4>
+                                        <p class="text-gray-400 text-sm">Karier.mu – via Program Prakerja, 2023</p>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <a href="https://drive.google.com/file/d/1GXDDSkiwm4tq7QJy3wwi7znNaB8jlflm/view?usp=sharing"
+                                        target="_blank"
+                                        class="inline-block px-4 py-1 text-sm bg-primary text-dark rounded hover:bg-primary/80 transition">
+                                        Lihat Sertifikat
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start justify-between bg-dark/30 p-4 rounded-lg">
+                                <div class="flex">
+                                    <div class="mr-4">
+                                        <div
+                                            class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                                            <i class="fas fa-certificate text-primary"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold">Pengembang Perangkat Lunak Berbasis Website</h4>
+                                        <p class="text-gray-400 text-sm">Karier.mu – via Program Prakerja, 2024</p>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <a href="https://drive.google.com/file/d/1xcov6Hr5k__hzkjZCty2Ns5I7oaDap37/view?usp=sharing"
+                                        target="_blank"
+                                        class="inline-block px-4 py-1 text-sm bg-primary text-dark rounded hover:bg-primary/80 transition">
+                                        Lihat Sertifikat
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:w-1/2">
+                    <div class="bg-dark border border-gray-800 rounded-xl p-6">
+                        <h3 class="text-xl font-semibold mb-4">Proses Kerja</h3>
+
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="mr-4 mt-1">
+                                    <div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
+                                        <span class="text-primary font-bold">1</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">Analisis Kebutuhan</h4>
+                                    <p class="text-gray-400">Memahami kebutuhan pengguna dan tujuan bisnis untuk
+                                        menentukan solusi terbaik.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div class="mr-4 mt-1">
+                                    <div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
+                                        <span class="text-primary font-bold">2</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">Desain & Prototipe</h4>
+                                    <p class="text-gray-400">Membuat wireframe dan prototipe untuk memvisualisasikan
+                                        solusi.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div class="mr-4 mt-1">
+                                    <div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
+                                        <span class="text-primary font-bold">3</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">Pengembangan</h4>
+                                    <p class="text-gray-400">Menerapkan solusi dengan teknologi terbaik dan kode
+                                        berkualitas tinggi.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div class="mr-4 mt-1">
+                                    <div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
+                                        <span class="text-primary font-bold">4</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">Pengujian & Peluncuran</h4>
+                                    <p class="text-gray-400">Memastikan kualitas melalui pengujian menyeluruh sebelum
+                                        peluncuran.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-8">
+                            <h4 class="font-semibold mb-2">Quote Favorit</h4>
+                            <div class="bg-darker border-l-4 border-primary p-4 rounded-r">
+                                <p class="italic text-gray-300">
+                                    "First, solve the problem. Then, write the code."
+                                </p>
+                                <p class="text-primary mt-2">- John Johnson</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="py-20 bg-dark">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-2 section-title">Kemampuan Teknis</h2>
+            <div class="w-20 h-1 bg-primary rounded-full mb-10"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-darker border border-gray-800 rounded-xl p-6">
+                    <div class="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                        <i class="fas fa-laptop-code text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Frontend Development</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tech-tag px-3 py-1 rounded text-sm flex items-center">
+                            <i class="fab fa-vuejs tech-icon"></i> Vue.js
+                        </span>
+                        <span class="tech-tag px-3 py-1 rounded text-sm flex items-center">
+                            <i class="fab fa-css3-alt tech-icon"></i> Tailwind CSS
+                        </span>
+                        <span class="tech-tag px-3 py-1 rounded text-sm flex items-center">
+                            <i class="fab fa-bootstrap tech-icon"></i> Bootstrap
+                        </span>
+                        <span class="tech-tag px-3 py-1 rounded text-sm flex items-center">
+                            <i class="fab fa-js tech-icon"></i> JavaScript
+                        </span>
+                        <span class="tech-tag px-3 py-1 rounded text-sm flex items-center">
+                            <i class="fab fa-html5 tech-icon"></i> HTML5
+                        </span>
+                        <span class="tech-tag px-3 py-1 rounded text-sm flex items-center">
+                            <i class="fab fa-css3-alt tech-icon"></i> CSS3
+                        </span>
+                    </div>
+                </div>
+
+                <div class="bg-darker border border-gray-800 rounded-xl p-6">
+                    <div class="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                        <i class="fas fa-server text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Backend Development</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tech-tag px-3 py-1 rounded text-sm flex items-center">
+                            <i class="fab fa-laravel tech-icon"></i> Laravel
+                        </span>
+                        <span class="tech-tag px-3 py-1 rounded text-sm flex items-center">
+                            <i class="fas fa-code tech-icon"></i> CodeIgniter
+                        </span>
+                        <span class="tech-tag px-3 py-1 rounded text-sm flex items-center">
+                            <i class="fas fa-database tech-icon"></i> MySQL
+                        </span>
+                        <span class="tech-tag px-3 py-1 rounded text-sm flex items-center">
+                            <i class="fas fa-code tech-icon"></i> REST API
+                        </span>
+                    </div>
+                </div>
+
+                <div class="bg-darker border border-gray-800 rounded-xl p-6">
+                    <div class="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                        <i class="fas fa-mobile-alt text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Mobile Development</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tech-tag px-3 py-1 rounded text-sm flex items-center">
+                            <i class="fab fa-android tech-icon"></i> Android (Java)
+                        </span>
+                        <span class="tech-tag px-3 py-1 rounded text-sm flex items-center">
+                            <i class="fas fa-mobile-alt tech-icon"></i> Flutter
+                        </span>
+                        <span class="tech-tag px-3 py-1 rounded text-sm flex items-center">
+                            <i class="fab fa-react tech-icon"></i> React Native
+                        </span>
+                    </div>
+                </div>
+
+                <div class="bg-darker border border-gray-800 rounded-xl p-6">
+                    <div class="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                        <i class="fas fa-tools text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Alat & Lainnya</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tech-tag px-3 py-1 rounded text-sm flex items-center">
+                            <i class="fab fa-git-alt tech-icon"></i> Git & GitHub
+                        </span>
+                        <span class="tech-tag px-3 py-1 rounded text-sm flex items-center">
+                            <i class="fab fa-aws tech-icon"></i> AWS
+                        </span>
+                        <span class="tech-tag px-3 py-1 rounded text-sm flex items-center">
+                            <i class="fab fa-digital-ocean tech-icon"></i> Digital Ocean
+                        </span>
+                        <span class="tech-tag px-3 py-1 rounded text-sm flex items-center">
+                            <i class="fab fa-linux tech-icon"></i> Linux
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="project" class="py-20 bg-darker">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-2 section-title">Project Saya</h2>
+            <div class="w-20 h-1 bg-primary rounded-full mb-10"></div>
+
+            <div class="flex mb-10 space-x-4">
+                <button class="project-filter px-4 py-2 bg-primary text-dark font-medium rounded-lg"
+                    data-filter="all">Semua Project</button>
+                <button
+                    class="project-filter px-4 py-2 border border-primary text-primary font-medium rounded-lg hover:bg-primary/10 transition"
+                    data-filter="Selesai">Project Selesai</button>
+                <button
+                    class="project-filter px-4 py-2 border border-primary text-primary font-medium rounded-lg hover:bg-primary/10 transition"
+                    data-filter="Berjalan">Project Berjalan</button>
+            </div>
+
+            <div id="projectList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            </div>
+        </div>
+    </section>
+
+    <section id="kontak" class="py-20 bg-dark">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-2 section-title">Hubungi Saya</h2>
+            <div class="w-20 h-1 bg-primary rounded-full mb-10"></div>
+
+            <div class="flex flex-col md:flex-row gap-10">
+                <div class="md:w-1/2">
+                    <p class="text-gray-300 mb-6">
+                        Tertarik bekerja sama? Silakan hubungi saya melalui formulir di samping
+                        atau melalui salah satu platform di bawah ini. Saya akan membalas pesan
+                        Anda secepat mungkin.
+                    </p>
+
+                    <div class="mt-8">
+                        <div class="flex items-center mb-6">
+                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
+                                <i class="fas fa-envelope text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-gray-400 text-sm">Email</h4>
+                                <a href="mailto:nurfaizfathurrahman@gmail.com">
+                                    <p class="font-medium">nurfaizfathurrahman@gmail.com</p>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center mb-6">
+                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
+                                <i class="fab fa-whatsapp text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-gray-400 text-sm">WhatsApp</h4>
+                                <a href="http://wa.me/6281111152414">
+                                    <p class="font-medium">+62 811 1115 2414</p>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
+                                <i class="fab fa-github text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-gray-400 text-sm">GitHub</h4>
+                                <a href="http://github.com/nurfaizfy">
+                                    <p class="font-medium">github.com/nurfaizfy</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-10 flex space-x-4">
+                        <a href="https://linkedin.com/in/nurfaizfy"
+                            class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary/20 transition">
+                            <i class="fab fa-linkedin-in text-primary"></i>
+                        </a>
+                        <a href="https://x.com/nurfaizfy"
+                            class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary/20 transition">
+                            <i class="fab fa-twitter text-primary"></i>
+                        </a>
+                        <a href="https://instagram.com/nurfaizfy"
+                            class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary/20 transition">
+                            <i class="fab fa-instagram text-primary"></i>
+                        </a>
+                        <a href="https://facebook.com/nurfaizfy"
+                            class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary/20 transition">
+                            <i class="fab fa-facebook-f text-primary"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="md:w-1/2">
+                    <div class="bg-darker border border-gray-800 rounded-xl p-6">
+                        <form target="_blank" action="https://formsubmit.co/nurfaizfathurrahman@gmail.com"
+                            method="POST">
+                            <input type="hidden" name="_captcha" value="false">
+                            <div class="mb-4">
+                                <label class="block text-gray-400 mb-2">Nama Lengkap</label>
+                                <input type="text" name="name"
+                                    class="w-full bg-dark border border-gray-800 rounded-lg px-4 py-3 focus:outline-none focus:border-primary">
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="block text-gray-400 mb-2">Email</label>
+                                <input type="email" name="email"
+                                    class="w-full bg-dark border border-gray-800 rounded-lg px-4 py-3 focus:outline-none focus:border-primary">
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="block text-gray-400 mb-2">Subjek</label>
+                                <input type="text" name="subject"
+                                    class="w-full bg-dark border border-gray-800 rounded-lg px-4 py-3 focus:outline-none focus:border-primary">
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="block text-gray-400 mb-2">Pesan</label>
+                                <textarea rows="4" name="message"
+                                    class="w-full bg-dark border border-gray-800 rounded-lg px-4 py-3 focus:outline-none focus:border-primary"></textarea>
+                            </div>
+
+                            <button
+                                class="w-full py-3 bg-primary text-dark font-semibold rounded-lg hover:bg-emerald-400 transition">
+                                Kirim Pesan
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-darker border-t border-gray-800 py-10">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center mr-3">
+                            <i class="fas fa-code text-dark text-lg"></i>
+                        </div>
+                        <span class="text-xl font-bold">Portofolio</span>
+                    </div>
+                    <p class="text-gray-500 mt-2 text-sm">Membuat aplikasi web & mobile yang luar biasa</p>
+                </div>
+
+                <div class="text-gray-500 text-sm">
+                    &copy; 2025. Hak Cipta Dilindungi.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="projectModal" class="fixed inset-0 z-50 hidden">
+        <div class="modal-overlay absolute inset-0"></div>
+        <div class="relative w-full h-full flex items-center justify-center p-4">
+            <div class="bg-dark border border-gray-800 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-6">
+                        <h2 id="modalTitle" class="text-2xl font-bold"></h2>
+                        <button onclick="closeProject()" class="text-gray-400 hover:text-white">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+
+                    <div class="relative mb-6">
+                        <div id="carousel" class="overflow-hidden rounded-lg">
+                            <div class="flex transition-transform duration-500 ease-in-out" id="carousel-track">
+                            </div>
+                        </div>
+
+                        <button id="prevBtn"
+                            class="absolute left-4 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-dark/80 rounded-full flex items-center justify-center hover:bg-primary transition">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button id="nextBtn"
+                            class="absolute right-4 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-dark/80 rounded-full flex items-center justify-center hover:bg-primary transition">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+
+                        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2"
+                            id="carousel-indicators">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                        <div class="md:col-span-2">
+                            <h3 class="text-lg font-semibold mb-2"></h3>
+                            <p id="modalDescription" class="text-gray-300">
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold mb-2">Detail</h3>
+                            <ul class="text-gray-300 space-y-2">
+                                <li class="flex">
+                                    <i class="fas fa-calendar-alt text-primary mr-2 mt-1"></i>
+                                    <span>Dibuat: <span id="modalDate"></span></span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-tag text-primary mr-2 mt-1"></i>
+                                    <span>Status: <span id="modalStatus" class="text-secondary"></span></span>
+                                </li>
+                                <li class="flex demo-link">
+                                    <i class="fas fa-link text-primary mr-2 mt-1"></i>
+                                    <span>
+                                        Demo:
+                                        <a href="#" class="text-primary hover:underline">appdemo.com</a>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-2">Teknologi Digunakan</h3>
+                        <div class="flex flex-wrap gap-2" id="modalTech">
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2">Fitur Utama</h3>
+                        <ul class="text-gray-300 space-y-2" id="features">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const techIcons = {
+            "React": "fab fa-react",
+            "Vue.js": "fab fa-vuejs",
+            "Tailwind CSS": "fab fa-css3-alt",
+            "JavaScript": "fab fa-js",
+            "TypeScript": "fas fa-code",
+            "HTML5": "fab fa-html5",
+            "CSS3": "fab fa-css3-alt",
+            "Node.js": "fab fa-node-js",
+            "Express": "fas fa-server",
+            "MongoDB": "fas fa-database",
+            "Firebase": "fas fa-fire",
+            "MySQL": "fas fa-database",
+            "REST API": "fas fa-code",
+            "GraphQL": "fas fa-code",
+            "Android (Kotlin)": "fab fa-android",
+            "Android (Java)": "fab fa-android",
+            "Flutter": "fas fa-mobile-alt",
+            "React Native": "fab fa-react",
+            "Jetpack Compose": "fab fa-android",
+            "Room DB": "fas fa-database",
+            "Retrofit": "fas fa-code",
+            "Git & GitHub": "fab fa-github",
+            "Docker": "fab fa-docker",
+            "CI/CD": "fas fa-sync-alt",
+            "Figma": "fab fa-figma",
+            "Jira": "fab fa-jira",
+            "Agile": "fas fa-tasks",
+            "AWS": "fab fa-aws",
+            "Kotlin": "fab fa-android",
+            "TensorFlow Lite": "fas fa-brain",
+            "Stripe API": "fab fa-stripe",
+            "D3.js": "fas fa-chart-bar",
+            "Socket.io": "fas fa-plug",
+            "Lua": "fas fa-code",
+            "Linux": "fab fa-linux",
+            "PHP": "fab fa-php",
+            "Laravel": "fab fa-laravel",
+            "CodeIgniter": "fas fa-code",
+            "WordPress": "fab fa-wordpress",
+            "Bootstrap": "fab fa-bootstrap",
+            "jQuery": "fab fa-js",
+            "Leaflet.js": "fab fa-js",
+            "Tripay": "fas fa-code"
+        };
+
+        const projects = [
+            /* { images with html format
+                id: 1,
+                title: "Analytics Dashboard",
+                description: "Dashboard analitik real-time dengan visualisasi data interaktif. Menampilkan metrik kinerja utama, tren pengguna, dan analisis perilaku. Pengguna dapat membuat laporan kustom, menyimpan template visualisasi, dan mengekspor data dalam berbagai format. Terintegrasi dengan Google Analytics dan platform analitik lainnya.",
+                date: "Mar 2023 - Sekarang",
+                status: "Berjalan",
+                statusClass: "text-primary",
+                tech: ["React", "TypeScript", "Tailwind CSS", "D3.js", "Node.js", "Express"],
+                images: [
+                    `<div class="w-full h-80 bg-gradient-to-br from-primary/20 to-darker flex items-center justify-center flex-shrink-0">
+                        <div class="text-center">
+                            <div class="text-5xl text-primary mb-4"><i class="fas fa-chart-bar"></i></div>
+                            <h3 class="text-xl font-bold">Analytics Dashboard</h3>
+                            <p class="text-gray-400">Tampilan Utama</p>
+                        </div>
+                    </div>`,
+                    `<div class="w-full h-80 bg-gradient-to-br from-blue-500/20 to-darker flex items-center justify-center flex-shrink-0">
+                        <div class="text-center">
+                            <div class="text-5xl text-primary mb-4"><i class="fas fa-chart-pie"></i></div>
+                            <h3 class="text-xl font-bold">Visualisasi Data</h3>
+                            <p class="text-gray-400">Grafik Interaktif</p>
+                        </div>
+                    </div>`,
+                    `<div class="w-full h-80 bg-gradient-to-br from-purple-500/20 to-darker flex items-center justify-center flex-shrink-0">
+                        <div class="text-center">
+                            <div class="text-5xl text-primary mb-4"><i class="fas fa-cogs"></i></div>
+                            <h3 class="text-xl font-bold">Kustomisasi</h3>
+                            <p class="text-gray-400">Panel Konfigurasi</p>
+                        </div>
+                    </div>`
+                ]
+            },
+            */
+            {
+                id: 1,
+                title: "Javalife Roleplay MTA Server",
+                description: "Javalife Roleplay adalah server game roleplay berbasis Multi Theft Auto: San Andreas (MTA:SA), sebuah modifikasi online multiplayer dari game legendaris Grand Theft Auto: San Andreas. Project ini dibangun menggunakan bahasa pemrograman Lua di sisi game dan berjalan di server berbasis Linux untuk memastikan performa dan stabilitas. Untuk sisi web, Javalife menggunakan CodeIgniter 3 sebagai kerangka kerja backend dan phpBB sebagai forum komunitas. Website dirancang untuk menyediakan layanan pendaftaran, manajemen akun, log aktivitas, integrasi forum, serta dashboard administratif untuk mengelola data pemain dan event dalam game.",
+                date: "Jan 2023",
+                status: "Selesai",
+                statusClass: "text-secondary",
+                tech: ["Linux", "MySQL", "Lua", "PHP", "CodeIgniter"],
+                images: [
+                    "images/project-mta-1.jpg",
+                    "images/project-mta-2.jpg",
+                    "images/project-mta-3.jpg",
+                ],
+                demoLink: '',
+                features: [
+                    "Sistem Roleplay Realistis",
+                    "Pendaftaran & Manajemen Akun Terintegrasi",
+                    "Panel Admin Berbasis Web",
+                    "Server Stabil Berbasis Linux",
+                    "Pengembangan Script Lua Modular",
+                    "Peta dan Fraksi Custom",
+                    "Berbagai fitur In Game yang menarik"
+                ],
+            },
+            {
+                id: 2,
+                title: "Soranime - Anime Stream Platform",
+                description: "Soranime adalah platform streaming anime yang saya kembangkan untuk pengguna mobile. Aplikasi ini memungkinkan pengguna untuk menonton anime secara langsung melalui perangkat Android, dengan pengalaman antarmuka yang ringan dan responsif. Aplikasi mobile dibangun menggunakan Android Native (Java) dan terhubung ke versi web melalui REST API dari WordPress. WordPress berfungsi sebagai backend untuk mengelola konten anime, termasuk daftar anime, episode, jadwal tayang, dan metadata lainnya. Dengan pendekatan ini, pengelolaan konten bisa dilakukan dengan mudah oleh admin melalui panel WordPress, sementara aplikasi mobile mengambil datanya secara real-time.",
+                date: "Mar 2023 - Sekarang",
+                status: "Selesai",
+                statusClass: "text-secondary",
+                tech: ["Android (Java)", "WordPress", "REST API"],
+                images: [
+                    "images/project-soranime-1.png"
+                ],
+                demoLink: '',
+                features: [
+                    "Streaming Anime HD",
+                    "Integrasi REST API WordPress",
+                    "Pencarian & Filter Anime",
+                    "Daftar Anime & Detail Episode",
+                    "Pemutar Video",
+                    "Bookmark & Riwayat Tontonan",
+                    "Jadwal Tayang Anime",
+                    "Desain Ringan dan Responsif"
+                ]
+            },
+            {
+                id: 3,
+                title: "Regional Medical Olympiad (RMO) – Universitas Muhammadiyah Yogyakarta",
+                description: "Regional Medical Olympiad (RMO) adalah ajang kompetisi olimpiade kedokteran tingkat regional yang diselenggarakan oleh Universitas Muhammadiyah Yogyakarta (UMY). Untuk mendukung digitalisasi proses registrasi, saya mengembangkan sebuah website berbasis CodeIgniter 3 (CI3) yang berfungsi sebagai portal pendaftaran online resmi bagi peserta dari berbagai institusi kedokteran. Website ini dirancang untuk mempermudah alur pendaftaran peserta secara daring, mulai dari pengisian data tim, pengunggahan berkas persyaratan, hingga pembayaran biaya registrasi yang dilakukan secara otomatis melalui integrasi payment gateway. Sistem ini juga dilengkapi dengan panel admin untuk validasi data peserta, pemantauan pembayaran, serta pengelolaan dokumen.",
+                date: "Nov 2022",
+                status: "Selesai",
+                statusClass: "text-secondary",
+                tech: ["CodeIgniter", "PHP", "MySQL", "Bootstrap", "jQuery", "Tripay"],
+                images: [
+                    `<div class="w-full h-48 bg-gradient-to-br from-primary/20 to-darker flex items-center justify-center flex-shrink-0">
+                        <div class="text-center">
+                            <div class="text-5xl text-primary mb-4"><i class="fas fa-image"></i></div>
+                            <h3 class="text-xl font-bold">Regional Medical Olympiad (RMO) – Universitas Muhammadiyah Yogyakarta</h3>
+                        </div>
+                    </div>`,
+                ],
+                demoLink: '',
+                features: [
+                    "Portal Pendaftaran Tim Olimpiade",
+                    "Upload Dokumen Persyaratan",
+                    "Integrasi Payment Gateway",
+                    "Panel Admin Lengkap",
+                    "Responsive Design"
+                ]
+            },
+            {
+                id: 4,
+                title: "TAPGBoard (Track Activity & Progress Graph Board)",
+                description: "TAPGBoard (Track Activity & Progress Graph Board) adalah sebuah sistem monitoring pekerjaan lapangan di sektor perkebunan kelapa sawit yang dikembangkan secara cross-platform. Sistem ini menggabungkan teknologi WebGIS berbasis web dan aplikasi mobile untuk melacak aktivitas harian di lapangan secara real-time dan akurat. Aplikasi web dikembangkan menggunakan CodeIgniter 4 dan berfungsi sebagai pusat manajemen data, dashboard laporan, serta penyedia RESTful API untuk aplikasi mobile. Aplikasi mobile dibangun menggunakan Flutter, memungkinkan petugas lapangan untuk mencatat aktivitas seperti pembuangan tandan kosong (dump tankos), aplikasi tankos, dan melihat peta interaktif area kebun langsung dari perangkat Android mereka. Sistem ini sangat berguna untuk pengawasan kinerja, pelaporan progres harian, dan visualisasi spasial aktivitas kerja langsung di atas peta digital.",
+                date: "November 2024 - Mei 2025",
+                status: "Selesai",
+                statusClass: "text-secondary",
+                tech: ["CodeIgniter", "PHP", "Leaflet.js", "MySQL", "REST API", "Bootstrap", "jQuery", "Flutter"],
+                images: [
+                    "images/project-tapg-1.png",
+                    "images/project-tapg-2.png",
+                    "images/project-tapg-3.png",
+                    "images/project-tapg-4.png",
+                    "images/project-tapg-5.png",
+                    "images/project-tapg-6.png"
+                ],
+                demoLink: '',
+                features: [
+                    "Peta Interaktif (WebGIS)",
+                    "Export Laporan",
+                    "Input Aktivitas Lapangan",
+                    "Mode Offline & Sinkronisasi",
+                    "Manajemen Data Lapangan"
+                ]
+            },
+            {
+                id: 5,
+                title: "Smart Patrol",
+                description: "Smart Patrol adalah sebuah sistem digital berbasis Android dan web yang dikembangkan untuk membantu aktivitas patroli keamanan di area kerja secara lebih efisien, terstruktur, dan terdokumentasi dengan baik. Aplikasi ini dirancang untuk mencatat dan memantau temuan patroli, seperti kondisi tidak aman, tindakan tidak aman, serta berbagai kategori dan tingkat bahaya yang telah ditentukan sebelumnya. Versi mobile dikembangkan menggunakan Flutter, memungkinkan petugas lapangan untuk melakukan input data, menentukan kategori temuan, tingkat bahaya, serta menyertakan lokasi GPS dan foto dari setiap kejadian. Versi web berfungsi sebagai dashboard visualisasi peta sebaran temuan dan backend API (dibangun menggunakan Laravel 12) untuk aplikasi mobile. Dilengkapi dengan fitur unduh laporan dalam format PDF per temuan, serta ekspor seluruh temuan dalam format Excel dengan informasi yang lebih lengkap untuk keperluan audit dan pelaporan.",
+                date: "April 2025 - Juni 2025",
+                status: "Selesai",
+                statusClass: "text-secondary",
+                tech: ["Flutter", "Laravel", "PHP", "Leaflet.js", "MySQL", "REST API", "Tailwind CSS"],
+                images: [
+                    "images/project-smartpatrol-1.png",
+                    "images/project-smartpatrol-2.png",
+                    "images/project-smartpatrol-3.png",
+                    "images/project-smartpatrol-4.png"
+                ],
+                demoLink: '',
+                features: [
+                    "Peta Sebaran Temuan (WebGIS)",
+                    "Backend API untuk Mobile",
+                    "Input Temuan Patroli",
+                    "Peta Lokasi Temuan",
+                    "Upload Otomatis ke Server",
+                    "Eksport Laporan Excel Lengkap",
+                    "Cetak PDF per Temuan"
+                ]
+            },
+            {
+                id: 6,
+                title: "GantiJaga",
+                description: "GantiJaga adalah platform digital yang dirancang khusus untuk dokter umum dan spesialis dalam mengatur serta mencari shift jaga di klinik maupun rumah sakit. Website ini menjadi penghubung antara dokter yang ingin mengambil shift tambahan dan klinik/RS yang membutuhkan dokter jaga secara fleksibel dan real-time. Sistem ini memungkinkan dokter untuk melihat daftar shift yang tersedia, berkomunikasi langsung dengan penyedia shift melalui fitur chat, dan melakukan pembayaran fee shift melalui integrasi payment gateway. Dengan sistem yang transparan dan efisien, GantiJaga membantu kedua belah pihak berkoordinasi dengan cepat tanpa perlu proses manual yang memakan waktu. Saat ini platform dibangun menggunakan Laravel 12, dan direncanakan akan dikembangkan lebih lanjut ke dalam aplikasi Android berbasis Flutter agar dokter maupun pihak klinik bisa mengakses layanan dengan lebih cepat dan praktis dari perangkat mobile.",
+                date: "Mei 2025 - sekarang",
+                status: "Berjalan",
+                statusClass: "text-primary",
+                tech: ["Laravel", "PHP", "MySQL", "Tailwind CSS", "Vue.js", "Tripay", "REST API", "Flutter"],
+                images: [
+                    "images/project-gantijaga-1.png"
+                ],
+                demoLink: '',
+                features: [
+                    "Cari & Ambil Shift Jaga",
+                    "Pembayaran Fee Shift (Online)",
+                    "Chat Real-Time dengan Klinik/RS",
+                    "Riwayat Shift & Pendapatan",
+                    "Pasang Lowongan Shift"
+                ]
+            },
+            {
+                id: 7,
+                title: "Medxecution",
+                description: "Medxecution adalah sebuah platform bimbingan belajar (bimbel) berbasis web yang dirancang khusus untuk mahasiswa kedokteran yang ingin memperdalam materi akademik dan mempersiapkan diri menghadapi ujian. Sistem ini menyediakan proses pendaftaran online, pengelolaan kelas, akses materi, serta latihan soal (tryout) secara digital. Tersedia dua jenis kelas, kelas full mencakup jadwal bimbel tatap muka (offline), akses ke tryout online, dan materi dalam bentuk PDF dan video. Kelas tryout, yang hanya menyediakan akses ke tryout online. Website ini dibangun menggunakan Laravel 12 sebagai backend dan Vue.js sebagai frontend, serta terintegrasi dengan payment gateway untuk menangani proses pembayaran biaya pendaftaran secara otomatis dan aman.",
+                date: "Juni 2025 - sekarang",
+                status: "Berjalan",
+                statusClass: "text-primary",
+                tech: ["Laravel", "PHP", "MySQL", "Tailwind CSS", "Vue.js", "Tripay"],
+                images: [
+                    "images/project-medxecution-1.png",
+                    "images/project-medxecution-2.png",
+                    "images/project-medxecution-3.png",
+                    "images/project-medxecution-4.png"
+                ],
+                demoLink: '',
+                features: [
+                    "Pendaftaran Online",
+                    "Pembayaran Otomatis (Payment Gateway)",
+                    "Dashboard Peserta",
+                    "Materi Pembelajaran (PDF & Video)",
+                    "Tryout Online",
+                    "Jadwal Bimbel Tatap Muka"
+                ]
+            }
+        ];
+
+        let currentProject = null;
+        let currentSlideIndex = 0;
+
+        function openProject(projectId) {
+            const project = projects.find(p => p.id === projectId);
+            if (!project) return;
+
+            currentProject = project;
+            currentSlideIndex = 0;
+
+            document.getElementById('modalTitle').textContent = project.title;
+            document.getElementById('modalDescription').textContent = project.description;
+            document.getElementById('modalDate').textContent = project.date;
+            document.getElementById('modalStatus').textContent = project.status;
+            document.getElementById('modalStatus').className = project.statusClass;
+
+            const techContainer = document.getElementById('modalTech');
+            techContainer.innerHTML = '';
+            project.tech.forEach(tech => {
+                const tag = document.createElement('span');
+                tag.className = 'tech-tag px-3 py-1 rounded text-sm flex items-center';
+
+                const iconClass = techIcons[tech] || 'fas fa-code';
+                tag.innerHTML = `<i class="${iconClass} mr-2"></i> ${tech}`;
+
+                techContainer.appendChild(tag);
+            });
+
+            const carouselTrack = document.getElementById('carousel-track');
+            const indicatorsContainer = document.getElementById('carousel-indicators');
+
+            carouselTrack.innerHTML = '';
+            indicatorsContainer.innerHTML = '';
+
+            project.images.forEach((img, index) => {
+                const slide = document.createElement('div');
+                slide.className = 'w-full flex-shrink-0';
+                slide.style.width = '100%';
+
+                if (typeof img === 'string' && (img.endsWith('.jpg') || img.endsWith('.png') || img.endsWith('.jpeg') || img.endsWith('.webp'))) {
+                    slide.innerHTML = `
+                        <div class="aspect-[16/9] w-full rounded-lg overflow-hidden">
+                            <img src="${img}" alt="Project Image ${index + 1}" class="w-full h-full object-cover object-center" />
+                        </div>
+                    `;
+                } else {
+                    slide.innerHTML = img;
+                }
+
+                carouselTrack.appendChild(slide);
+
+                const indicator = document.createElement('button');
+                indicator.className = `w-3 h-3 rounded-full ${index === 0 ? 'bg-primary' : 'bg-gray-600'}`;
+                indicator.addEventListener('click', () => goToSlide(index));
+                indicatorsContainer.appendChild(indicator);
+            });
+
+            const demoItem = document.querySelector('.demo-link');
+            if (project.demoLink && project.demoLink.trim() !== "") {
+                demoItem.classList.remove('hidden');
+                demoItem.querySelector('a').setAttribute('href', project.demoLink);
+                demoItem.querySelector('a').textContent = project.demoLink;
+            } else {
+                demoItem.classList.add('hidden');
+            }
+
+            const features = document.getElementById('features');
+            features.innerHTML = '';
+
+            if (Array.isArray(project.features) && project.features.length > 0) {
+                project.features.forEach(feature => {
+                    const item = document.createElement('li');
+                    item.className = 'flex';
+                    item.innerHTML = `
+                        <i class="fas fa-check-circle text-primary mr-2 mt-1"></i>
+                            <span>${feature}</span>
+                    `;
+                    features.appendChild(item);
+                });
+            } else {
+                const item = document.createElement('li');
+                item.className = 'text-sm italic text-gray-500';
+                item.textContent = 'Belum ada fitur ditambahkan.';
+                features.appendChild(item);
+            }
+
+            updateCarousel();
+
+            document.getElementById('projectModal').classList.remove('hidden');
+        }
+
+        function closeProject() {
+            document.getElementById('projectModal').classList.add('hidden');
+        }
+
+        function goToSlide(index) {
+            if (!currentProject) return;
+
+            currentSlideIndex = index;
+            updateCarousel();
+        }
+
+        function nextSlide() {
+            if (!currentProject) return;
+
+            currentSlideIndex = (currentSlideIndex + 1) % currentProject.images.length;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            if (!currentProject) return;
+
+            currentSlideIndex = (currentSlideIndex - 1 + currentProject.images.length) % currentProject.images.length;
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            if (!currentProject) return;
+
+            const carouselTrack = document.getElementById('carousel-track');
+            const indicators = document.querySelectorAll('#carousel-indicators button');
+
+            carouselTrack.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+
+            indicators.forEach((indicator, index) => {
+                if (index === currentSlideIndex) {
+                    indicator.classList.remove('bg-gray-600');
+                    indicator.classList.add('bg-primary');
+                } else {
+                    indicator.classList.remove('bg-primary');
+                    indicator.classList.add('bg-gray-600');
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('prevBtn').addEventListener('click', prevSlide);
+            document.getElementById('nextBtn').addEventListener('click', nextSlide);
+
+            document.getElementById('projectModal').addEventListener('click', (e) => {
+                if (e.target === document.getElementById('projectModal')) {
+                    closeProject();
+                }
+            });
+
+            generateProjectCards();
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        document.getElementById('mobileMenuToggle').addEventListener('click', function () {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        });
+
+        function generateProjectCards(filter = 'all') {
+            const list = document.getElementById("projectList");
+            list.innerHTML = "";
+
+            const filteredProjects = filter === 'all'
+                ? projects.reverse()
+                : projects.reverse().filter(p => p.status === filter);
+
+            filteredProjects.forEach(project => {
+                const card = document.createElement("div");
+                card.className = "project-card card-hover bg-dark border border-gray-800 rounded-xl overflow-hidden";
+
+                // if (typeof project.images[0] === 'string' && (project.images[0].endsWith('.jpg') || project.images[0].endsWith('.png') || project.images[0].endsWith('.jpeg') || project.images[0].endsWith('.webp'))) {
+                //     slide.innerHTML = `
+                //         <div class="aspect-[16/9] w-full rounded-lg overflow-hidden">
+                //             <img src="${img}" alt="Project Image ${index + 1}" class="w-full h-full object-cover object-center" />
+                //         </div>
+                //     `;
+                // } else {
+                //     slide.innerHTML = img;
+                // }
+
+                card.innerHTML = `
+                    <div class="relative">
+                        <div class="h-48 rounded-t-xl overflow-hidden">
+                            ${project.images[0].match(/\.(jpeg|jpg|gif|png|webp)$/) ?
+                            `<img src="${project.images[0]}" alt="${project.title}" class="w-full h-full object-cover object-center" />` :
+                            project.images[0]}
+                        </div>
+                        <div class="absolute top-4 right-4">
+                            <span class="px-2 py-1 ${project.status === 'Selesai' ? 'bg-secondary' : 'bg-primary text-dark'} text-xs rounded">${project.status}</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">${project.title}</h3>
+                        <p class="text-gray-400 mb-4">${project.description.split('.')[0]}.</p>
+
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            ${project.tech.map(tech => `
+                                <span class="tech-tag px-3 py-1 rounded text-xs flex items-center">
+                                    <i class="${techIcons[tech] || 'fas fa-code'} tech-icon"></i> ${tech}
+                                </span>
+                            `).join('')}
+                        </div>
+
+                        <button
+                            class="w-full py-2 border border-primary text-primary rounded-lg hover:bg-primary/10 transition"
+                            onclick="openProject(${project.id})">
+                            Lihat Detail
+                        </button>
+                    </div>
+                `;
+
+                list.appendChild(card);
+            });
+        }
+
+        document.querySelectorAll('.project-filter').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const status = btn.getAttribute('data-filter');
+                generateProjectCards(status);
+
+                document.querySelectorAll('.project-filter').forEach(b => {
+                    b.classList.remove('bg-primary', 'text-dark');
+                    b.classList.add('border', 'border-primary', 'text-primary', 'hover:bg-primary/10', 'transition');
+                });
+                btn.classList.add('bg-primary', 'text-dark');
+                btn.classList.remove('border', 'border-primary', 'text-primary', 'hover:bg-primary/10', 'transition');
+            });
+        });
+    </script>
+</body>
+
+</html>
